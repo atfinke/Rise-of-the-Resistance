@@ -24,7 +24,12 @@ while true {
     print("Checking @ \(Date())")
     guard let dlrData = try? Data(contentsOf: dlrURL),
         let dlrResponse = try? JSONDecoder().decode(ResponseObject.self, from: dlrData),
-        let wdwData = try? Data(contentsOf: wdwURL), let wdwResponse = try? JSONDecoder().decode(ResponseObject.self, from: wdwData)else { fatalError() }
+        let wdwData = try? Data(contentsOf: wdwURL), let wdwResponse = try? JSONDecoder().decode(ResponseObject.self, from: wdwData) else {
+            
+            sleep(5)
+            print("no data")
+            continue
+    }
     
     if lastDLRResponse != dlrResponse {
         let diskPath = "\(path)DLR-\(Date().timeIntervalSince1970)"
@@ -50,5 +55,5 @@ while true {
         lastWDWResponse = wdwResponse
     }
     
-    sleep(10)
+    sleep(5)
 }
